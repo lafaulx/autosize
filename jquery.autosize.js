@@ -84,7 +84,7 @@
 			}
 
 			// IE8 and lower return 'auto', which parses to NaN, if no min-height is set.
-			minHeight = parseInt($ta.css('minHeight'), 10) - boxOffset || 0;
+			minHeight = minHeight = Math.min(parseInt($ta.css('minHeight'), 10) - boxOffset || 0, $ta.height());
 
 			$ta.css({
 				overflow: 'hidden',
@@ -183,7 +183,7 @@
 				mirror.scrollTop = 9e4;
 
 				// Using scrollTop rather than scrollHeight because scrollHeight is non-standard and includes padding.
-				height = mirror.scrollTop;
+				height = mirror.scrollTop - parseInt(mirror.style.lineHeight, 10);
 
 				if (maxHeight && height > maxHeight) {
 					ta.style.overflowY = 'scroll';
